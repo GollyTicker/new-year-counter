@@ -25,6 +25,7 @@
 </template>
 <script>
 export default {
+  // eslint-disable-next-line
   name: "Countdown",
   props: ["counter", "path", "offset", "scale"],
 };
