@@ -1,4 +1,5 @@
-# new-year
+# New Year Counter
+Simple New Year Countdown for your next celebration.
 
 ## Project setup
 ```
