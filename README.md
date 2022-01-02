@@ -10,6 +10,8 @@ npm install
 npm run serve
 ```
 
+Open `localhost:8080` in the browser. Open `localhost:8080?test` to artificially start on a small countdown number.
+
 ### Compiles and minifies for production
 ```
 npm run build

@@ -37,6 +37,9 @@ const screenSize = {
   height: WindowUtils.getHeight(),
 };
 
+const testDebug = location.href.includes("test");
+const testNewYear = new Date(new Date().getTime() + 5 * 1000);
+
 const screenMin = Math.min(screenSize.width, screenSize.height);
 
 // We compute this information every second, as the timer can be interrupted on smartphones due to
@@ -45,7 +48,9 @@ function computeNewYearInformation() {
   const currentDateAndTime = new Date();
 
   const nextYear = currentDateAndTime.getFullYear() + 1;
-  const newYearStart = new Date("January 01, " + nextYear + " 00:00:00");
+  const newYearStart = testDebug
+    ? testNewYear
+    : new Date("January 01, " + nextYear + " 00:00:00");
 
   const millisecondsToNewYear = Math.abs(
     newYearStart.getTime() - currentDateAndTime.getTime()
