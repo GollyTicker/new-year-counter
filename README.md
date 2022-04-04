@@ -23,5 +23,16 @@ npm run build
 npm run lint
 ```
 
+### Update all dependencies
+
+https://www.npmjs.com/package/npm-check-updates
+
+```
+ncu --upgrade
+#check changes
+npm install
+git commit -m "update dependencies"
+```
+
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
