@@ -3,7 +3,7 @@
     <text
       v-bind:x="0"
       v-bind:y="0"
-      :font-size="100 * scale"
+      :font-size="100 * scale * 0.8"
       v-if="counter > 0"
       fill="white"
       dominant-baseline="middle"

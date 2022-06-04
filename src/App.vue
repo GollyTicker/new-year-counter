@@ -6,24 +6,33 @@
           <Countdown
             :counter="this.heart.counter"
             :path="this.heartPath"
-            :offset="this.offset()"
-            :scale="this.heart.scale"
+            :offset="this.offset"
+            :scale="this.heartScale"
           />
         </g>
-        <text
-          id="new-year"
-          dominant-baseline="middle"
-          text-anchor="middle"
-          :x="screenSize.width / 2"
-          :y="screenSize.height / 2"
-          :font-size="screenSize.width / 20 + 'px'"
-          fill="white"
-          :display="textDisplay()"
-        >
-          🎉 🥳 New Year {{ heart.nextYear }}!! 🥳 🎉
-        </text>
       </svg>
     </div>
+    <p
+      id="new-year"
+      :style="
+        'font-size: ' +
+        textsize +
+        'px;' +
+        'top: calc(50% - ' +
+        textsize * heightOffsetByScreen +
+        'px);' +
+        'display:' +
+        textDisplay()
+      "
+    >
+      🎉 🥳
+      <span v-html="conditionalBreak" />
+      New Year
+      <span v-html="conditionalBreak" />
+      {{ heart.nextYear }}!!
+      <span v-html="conditionalBreak" />
+      🥳 🎉
+    </p>
   </div>
 </template>
 
@@ -32,15 +41,8 @@ import WindowUtils from "./services/WindowUtils.js";
 import Countdown from "./components/Countdown.vue";
 import anime from "animejs";
 
-const screenSize = {
-  width: WindowUtils.getWidth(),
-  height: WindowUtils.getHeight(),
-};
-
 const testDebug = location.href.includes("test");
 const testNewYear = new Date(new Date().getTime() + 5 * 1000);
-
-const screenMin = Math.min(screenSize.width, screenSize.height);
 
 // We compute this information every second, as the timer can be interrupted on smartphones due to
 // their lack of background tasks.
@@ -76,23 +78,40 @@ export default {
   name: "App",
   data() {
     return {
-      screenSize: screenSize,
-      screenMin: screenMin,
+      screenSize: {
+        height: 10,
+        width: 12,
+      },
       timer: -1,
       heart: {
         nextYear: 0,
         counter: 1337,
-        scale: screenMin / 500,
       },
     };
   },
   components: {
     Countdown,
   },
+  created() {
+    this.updateScreenSize();
+  },
   mounted: function () {
     this.refreshDataAfterElapsedTime();
+    window.addEventListener("resize", this.windowResized);
   },
   computed: {
+    screenMin() {
+      return Math.min(this.screenSize.width, this.screenSize.height);
+    },
+    screenMax() {
+      return Math.max(this.screenSize.width, this.screenSize.height);
+    },
+    textsize() {
+      return this.screenMax / 20;
+    },
+    heartScale() {
+      return this.screenMin / 500;
+    },
     heartPath: function () {
       return this.heart.counter <= 0
         ? "M0 200 v-200 h200 a100,100 90 0,1 0,200 a100,100 90 0,1 -200,0z"
@@ -104,8 +123,24 @@ export default {
     showText: function () {
       return !this.heartCountdownRunning;
     },
+    conditionalBreak() {
+      return this.isSlimScreen ? "<br>" : "";
+    },
+    heightOffsetByScreen() {
+      return this.isSlimScreen ? 4 : 2;
+    },
+    offset: function () {
+      return { x: this.screenSize.width / 2, y: this.screenSize.height / 2 };
+    },
+    isSlimScreen() {
+      return this.screenSize.height > this.screenSize.width;
+    },
   },
   methods: {
+    updateScreenSize() {
+      this.screenSize.height = WindowUtils.getHeight();
+      this.screenSize.width = WindowUtils.getWidth();
+    },
     textDisplay: function () {
       if (this.showText) {
         anime
@@ -128,6 +163,9 @@ export default {
         return "none";
       }
     },
+    windowResized() {
+      this.updateScreenSize();
+    },
     refreshDataAfterElapsedTime: function () {
       const newYearInfo = computeNewYearInformation();
       // This logic here is needed to ensure, that the timer is properly stopped when the last second is reached.
@@ -145,9 +183,6 @@ export default {
         this.refreshDataAfterElapsedTime,
         newYearInfo.millisToNextSecond + 5
       );
-    },
-    offset: function () {
-      return { x: this.screenSize.width / 2, y: this.screenSize.height / 2 };
     },
   },
 };
@@ -170,5 +205,11 @@ svg {
   margin: -1px;
   width: 100%;
   height: 100%;
+}
+#new-year {
+  color: white;
+  text-align: center;
+  position: fixed;
+  width: 100%;
 }
 </style>
