@@ -20,9 +20,7 @@
         'px;' +
         'top: calc(50% - ' +
         textsize * heightOffsetByScreen +
-        'px);' +
-        'display:' +
-        textDisplay()
+        'px);'
       "
     >
       🎉 🥳
@@ -143,27 +141,22 @@ export default {
       this.screenSize.height = WindowUtils.getHeight();
       this.screenSize.width = WindowUtils.getWidth();
     },
-    textDisplay: function () {
-      if (this.showText) {
-        anime
-          .timeline({ loop: true })
-          .add({
-            targets: "#new-year",
-            opacity: [0, 1],
-            easing: "easeInOutQuad",
-            duration: 2500,
-          })
-          .add({
-            targets: "#new-year",
-            opacity: 0,
-            duration: 1000,
-            easing: "easeOutExpo",
-            delay: 700,
-          });
-        return "inline";
-      } else {
-        return "none";
-      }
+    startTextAnimation() {
+      anime
+        .timeline({ loop: true })
+        .add({
+          targets: "#new-year",
+          opacity: [0, 1],
+          easing: "easeInOutQuad",
+          duration: 2500,
+        })
+        .add({
+          targets: "#new-year",
+          opacity: 0,
+          duration: 1000,
+          easing: "easeOutExpo",
+          delay: 700,
+        });
     },
     windowResized() {
       this.updateScreenSize();
@@ -173,6 +166,7 @@ export default {
       // This logic here is needed to ensure, that the timer is properly stopped when the last second is reached.
       if (this.heart.counter == 1) {
         this.heart.counter = 0;
+        this.startTextAnimation();
       } else if (this.heartCountdownRunning) {
         this.heart.nextYear = newYearInfo.nextYear;
         this.heart.counter = newYearInfo.secondsToNewYear;
@@ -213,5 +207,6 @@ svg {
   text-align: center;
   position: fixed;
   width: 100%;
+  opacity: 0; /* This is animated */
 }
 </style>
