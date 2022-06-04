@@ -18,7 +18,7 @@
         transform="translate(-100, -75)
         rotate(225, 100, 100)"
       >
-        <path id="heart" fill="#B00" v-bind:d="this.path" />
+        <path id="heart" v-bind:d="this.path" />
       </g>
     </g>
   </g>
@@ -30,3 +30,8 @@ export default {
   props: ["counter", "path", "offset", "scale"],
 };
 </script>
+<style scoped>
+#heart {
+  fill: rgba(231, 161, 32, 0.979);
+}
+</style>

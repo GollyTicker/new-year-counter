@@ -27,9 +27,11 @@
     >
       🎉 🥳
       <span v-html="conditionalBreak" />
-      New Year
+      Happy
       <span v-html="conditionalBreak" />
-      {{ heart.nextYear }}!!
+      birthday,
+      <span v-html="conditionalBreak" />
+      Christina!!
       <span v-html="conditionalBreak" />
       🥳 🎉
     </p>
@@ -107,7 +109,7 @@ export default {
       return Math.max(this.screenSize.width, this.screenSize.height);
     },
     textsize() {
-      return this.screenMax / 20;
+      return this.isSlimScreen ? this.screenMax / 25 : this.screenMax / 23;
     },
     heartScale() {
       return this.screenMin / 500;
@@ -127,7 +129,7 @@ export default {
       return this.isSlimScreen ? "<br>" : "";
     },
     heightOffsetByScreen() {
-      return this.isSlimScreen ? 4 : 2;
+      return this.isSlimScreen ? 4.5 : 2;
     },
     offset: function () {
       return { x: this.screenSize.width / 2, y: this.screenSize.height / 2 };
