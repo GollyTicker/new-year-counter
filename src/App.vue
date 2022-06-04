@@ -51,10 +51,10 @@ const testNewYear = new Date(new Date().getTime() + 5 * 1000);
 function computeNewYearInformation() {
   const currentDateAndTime = new Date();
 
-  const nextYear = currentDateAndTime.getFullYear() + 1;
+  const nextYear = currentDateAndTime.getFullYear();
   const newYearStart = testDebug
     ? testNewYear
-    : new Date("January 01, " + nextYear + " 00:00:00");
+    : new Date("June 06, " + nextYear + " 00:00:00");
 
   const millisecondsToNewYear = Math.abs(
     newYearStart.getTime() - currentDateAndTime.getTime()
@@ -62,7 +62,7 @@ function computeNewYearInformation() {
   const secondsToNewYear = Math.round(millisecondsToNewYear / 1000);
 
   console.log(
-    "New Year Info",
+    "Bday Info",
     currentDateAndTime,
     nextYear,
     secondsToNewYear,
