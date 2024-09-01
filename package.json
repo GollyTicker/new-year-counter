@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "serve": "vue-cli-service serve",
-        "build": "vue-cli-service build",
+        "build": "vue-cli-service build && rm -rv ~/Projects/DigitalOcean-Webserver/secure-domain/www/new-year/* && cp -rv dist/* ~/Projects/DigitalOcean-Webserver/secure-domain/www/new-year/",
         "lint": "vue-cli-service lint"
     },
     "dependencies": {
