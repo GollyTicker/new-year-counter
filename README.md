@@ -1,5 +1,5 @@
 # New Year Counter
-Simple New Year Countdown for your next celebration available online at [swaneet.eu/new-year](https://swaneet.eu/new-year).
+Simple New Year Countdown for your next celebration available online at [ayake.net/new-year](https://ayake.net/new-year).
 
 ## Project setup
 ```
