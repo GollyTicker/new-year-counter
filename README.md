@@ -3,7 +3,7 @@ Simple New Year Countdown for your next celebration available online at [ayake.n
 
 ## Project setup
 ```
-npm install
+npm install --ignore-scripts
 ```
 
 ### Compiles and hot-reloads for development
@@ -30,7 +30,7 @@ https://www.npmjs.com/package/npm-check-updates
 ```
 ncu --upgrade
 #check changes
-npm install
+npm install --ignore-scripts
 git commit -m "update dependencies"
 ```
 
